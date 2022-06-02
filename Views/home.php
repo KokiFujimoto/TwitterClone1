@@ -1,10 +1,8 @@
 <?php
-// エラー表示あり
-ini_set('display_errors', 1);
-// 日本時間にする
-date_default_timezone_set('Asia/Tokyo');
-// URL/ディレクトリ設定
-define('HOME_URL', '/TwitterClone1/');
+// 設定関連を読み込む
+include_once('../config.php');
+// 便利な関数を読み込む
+include_once('../util.php');
  
 ///////////////////////////////////////
 // ツイート一覧
@@ -34,63 +32,6 @@ $view_tweets = [
     ]
 ];
  
-///////////////////////////////////////
-// 便利な関数
-///////////////////////////////////////
- 
-/**
-    * 画像ファイル名から画像のURLを生成する
-    *
-    * @param string $name 画像ファイル名
-    * @param string $type user | tweet
-    * @return string
-    */
-function buildImagePath(string $name = null, string $type)
-{
-    if ($type === 'user' && !isset($name)) {
-        return HOME_URL . 'Views/img/icon-default-user.svg';
-    }
- 
-    return HOME_URL . 'Views/img_uploaded/' . $type . '/' . htmlspecialchars($name);
-}
- 
-/**
-    * 指定した日時からどれだけ経過したかを取得
-    *
-    * @param string $datetime 日時
-    * @return string
-    */
-function convertToDayTimeAgo(string $datetime)
-{
-    $unix = strtotime($datetime);
-    $now = time();
-    $diff_sec = $now - $unix;
- 
-    if ($diff_sec < 60) {
-        $time = $diff_sec;
-        $unit = '秒前';
-    } elseif ($diff_sec < 3600) {
-        $time = $diff_sec / 60;
-        $unit = '分前';
-    } elseif ($diff_sec < 86400) {
-        $time = $diff_sec / 3600;
-        $unit = '時間前';
-    } elseif ($diff_sec < 2764800) {
-        $time = $diff_sec / 86400;
-        $unit = '日前';
-    } else {
- 
-        if (date('Y') !== date('Y', $unix)) {
-            $time = date('Y年n月j日', $unix);
-        } else {
-            $time = date('n月j日', $unix);
-        }
-        return $time;
-    }
- 
-    return (int)$time . $unit;
-}
- 
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -107,6 +48,8 @@ function convertToDayTimeAgo(string $datetime)
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous" defer></script>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous" defer></script>
+    <!-- いいね！JS -->
+    <script src="<?php echo HOME_URL; ?>Views/js/likes.js" defer></script>
  
     <title>ホーム画面 / Twitterクローン</title>
     <meta name="description" content="ホーム画面です">
@@ -179,7 +122,7 @@ function convertToDayTimeAgo(string $datetime)
                                 <?php endif; ?>
  
                                 <div class="icon-list">
-                                    <div class="like">
+                                    <div class="like js-like" data-like-id="<?php echo htmlspecialchars($view_tweet['like_id']); ?>">
                                         <?php
                                         if (isset($view_tweet['like_id'])) {
                                             // いいね！している場合、青のハートを表示
@@ -190,7 +133,7 @@ function convertToDayTimeAgo(string $datetime)
                                         }
                                         ?>
                                     </div>
-                                    <div class="like-count"><?php echo htmlspecialchars($view_tweet['like_count']); ?></div>
+                                    <div class="like-count js-like-count"><?php echo htmlspecialchars($view_tweet['like_count']); ?></div>
                                 </div>
                             </div>
                         </div>
