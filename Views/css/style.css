@@ -1,0 +1,31 @@
+/*
+全体
+****/
+.container {
+    display: flex;
+    justify-content: center;
+}
+ 
+.side {
+    width: 90px;
+}
+ 
+.main {
+    width: calc(100% - 90px);
+}
+ 
+/*
+サイド
+****/
+.side .side-inner {
+    position: sticky;
+    height: 100vh;
+    top: 0px;
+    padding-top: 20px;
+    text-align: center;
+}
+ 
+.side .side-inner img {
+    width: 35%;
+    margin-bottom: 15px;
+}
