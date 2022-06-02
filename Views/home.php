@@ -19,17 +19,21 @@
         <div class="side">
             <div class="side-inner">
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a href="home.php" class="nav-link"><img src="../Views/img/logo-twitterblue.svg" alt=""></a></li>
+                    <li class="nav-item"><a href="home.php" class="nav-link"><img src="../Views/img/logo-twitterblue.svg" alt="" class="icon"></a></li>
                     <li class="nav-item"><a href="home.php" class="nav-link"><img src="../Views/img/icon-home.svg" alt=""></a></li>
                     <li class="nav-item"><a href="search.php" class="nav-link"><img src="../Views/img/icon-search.svg" alt=""></a></li>
                     <li class="nav-item"><a href="notification.php" class="nav-link"><img src="../Views/img/icon-notification.svg" alt=""></a></li>
                     <li class="nav-item"><a href="profile.php" class="nav-link"><img src="../Views/img/icon-profile.svg" alt=""></a></li>
-                    <li class="nav-item"><a href="post.php" class="nav-link"><img src="../Views/img/icon-post-tweet-twitterblue.svg" alt=""></a></li>
-                    <li class="nav-item"><img src="../Views/img_uploaded/user/sample-person.jpg" alt=""></li>
+                    <li class="nav-item"><a href="post.php" class="nav-link"><img src="../Views/img/icon-post-tweet-twitterblue.svg" alt="" class="post-tweet"></a></li>
+                    <li class="nav-item my-icon"><img src="../Views/img_uploaded/user/sample-person.jpg" alt=""></li>
                 </ul>
             </div>
         </div>
-        <div class="main"></div>
+        <div class="main">
+            <div class="main-header">
+                <h1>ホーム</h1>
+            </div>
+        </div>
     </div>
 </body>
  

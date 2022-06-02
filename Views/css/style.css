@@ -12,6 +12,14 @@
  
 .main {
     width: calc(100% - 90px);
+    border-left: 1px solid #eef;
+    border-right: 1px solid #eef;
+    text-align: left;
+    max-width: 600px;
+}
+ 
+.nav-link {
+    padding: .3rem;
 }
  
 /*
@@ -28,4 +36,39 @@
 .side .side-inner img {
     width: 35%;
     margin-bottom: 15px;
+}
+ 
+.side .side-inner img.icon {
+    width: 70%;
+}
+ 
+.side .side-inner img.post-tweet {
+    width: 80%;
+}
+ 
+.side .side-inner .my-icon {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+}
+ 
+.side .side-inner .my-icon img {
+    width: 60%;
+    border-radius: 50%;
+    border: 0.2px solid #aaa;
+}
+ 
+/*
+メイン
+****/
+.main .main-header {
+    padding: 20px;
+    border-bottom: 1px solid #eef;
+}
+ 
+.main .main-header h1 {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    margin-bottom: 0;
 }
