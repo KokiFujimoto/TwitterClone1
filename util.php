@@ -2,7 +2,7 @@
 ///////////////////////////////////////
 // 便利な関数
 ///////////////////////////////////////
- 
+
 /**
     * 画像ファイル名から画像のURLを生成する
     *
@@ -15,10 +15,10 @@ function buildImagePath(string $name = null, string $type)
     if ($type === 'user' && !isset($name)) {
         return HOME_URL . 'Views/img/icon-default-user.svg';
     }
- 
+
     return HOME_URL . 'Views/img_uploaded/' . $type . '/' . htmlspecialchars($name);
 }
- 
+
 /**
     * 指定した日時からどれだけ経過したかを取得
     *
@@ -30,7 +30,7 @@ function convertToDayTimeAgo(string $datetime)
     $unix = strtotime($datetime);
     $now = time();
     $diff_sec = $now - $unix;
- 
+
     if ($diff_sec < 60) {
         $time = $diff_sec;
         $unit = '秒前';
@@ -44,7 +44,7 @@ function convertToDayTimeAgo(string $datetime)
         $time = $diff_sec / 86400;
         $unit = '日前';
     } else {
- 
+
         if (date('Y') !== date('Y', $unix)) {
             $time = date('Y年n月j日', $unix);
         } else {
@@ -52,6 +52,6 @@ function convertToDayTimeAgo(string $datetime)
         }
         return $time;
     }
- 
+
     return (int)$time . $unit;
 }
