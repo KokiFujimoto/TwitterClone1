@@ -1,66 +1,61 @@
 ///////////////////////////////////////
-// いいね！用のJavaScript
+// フォロー用のJavaScript
 ///////////////////////////////////////
  
 $(function () {
-    // いいね！がクリックされたとき
-    $('.js-like').click(function () {
+    $('.js-follow').click(function () {
         const this_obj = $(this);
-        const tweet_id = $(this).data('tweet-id');
-        const like_id = $(this).data('like-id');
-        const like_count_obj = $(this).parent().find('.js-like-count');
-        let like_count = Number(like_count_obj.html());
- 
-        if (like_id) {
-            // いいね！取り消し
-            // 非同期通信
+        const followed_user_id = $(this).data('followed-user-id');
+        const follow_id = $(this).data('follow-id');
+        cache: false
+        if (follow_id) {
+            // フォロー取り消し
             $.ajax({
-                url: 'like.php',
+                url: 'follow.php',
                 type: 'POST',
                 data: {
-                    'like_id': like_id
+                    'follow_id': follow_id
                 },
                 timeout: 10000
             })
-                // 取り消しが成功
+                // 取り消し成功
                 .done(() => {
-                    // いいね！カウントを減らす
-                    like_count--;
-                    like_count_obj.html(like_count);
-                    this_obj.data('like-id', null);
- 
-                    // いいね！ボタンの色をグレーに変更
-                    $(this).find('img').attr('src', '../Views/img/icon-heart.svg');
+                    // フォローボタンを白にする
+                    this_obj.addClass('btn-reverse');
+                    // フォローボタンの文言変更
+                    this_obj.text('フォローする');
+                    // フォローIDを削除
+                    this_obj.data('follow-id', null);
                 })
+                // 取り消し失敗
                 .fail((data) => {
                     alert('処理中にエラーが発生しました。');
                     console.log(data);
                 });
         } else {
-            // いいね！付与
-            // 非同期通信
+            // フォローする
             $.ajax({
-                url: 'like.php',
+                url: 'follow.php',
                 type: 'POST',
                 data: {
-                    'tweet_id': tweet_id
+                    'followed_user_id': followed_user_id
                 },
                 timeout: 10000
             })
-                // いいね！が成功
+                // フォロー成功
                 .done((data) => {
-                    // いいね！カウントを増やす
-                    like_count++;
-                    like_count_obj.html(like_count);
-                    this_obj.data('like-id', data['like_id']);
- 
-                    // いいね！ボタンの色を青に変更
-                    $(this).find('img').attr('src', '../Views/img/icon-heart-twitterblue.svg');
+                    // フォローボタンを青にする
+                    this_obj.removeClass('btn-reverse');
+                    // フォローボタンの文言変更
+                    this_obj.text('フォローを外す');
+                    // フォローIDを付与
+                    this_obj.data('follow-id', data['follow_id']);
                 })
+                // フォロー失敗
                 .fail((data) => {
                     alert('処理中にエラーが発生しました。');
                     console.log(data);
                 });
         }
-    });
-})
+    })
+});
